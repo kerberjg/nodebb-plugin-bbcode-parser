@@ -1,0 +1,28 @@
+{
+  "name": "nodebb-plugin-bbcode-parser",
+  "version": "0.0.1",
+  "description": "A BBCode parser for NodeBB",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrgame64/nodebb-plugin-bbcode-parser"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "bbcode",
+    "bbcodes,
+    "phpbb"
+  ],
+  "author": "James Game <james.game.64@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrgame64/nodebb-plugin-bbcode-parser/issues"
+  },
+  "dependencies": {
+    "markdown-it": "1.x"
+  },
+  "nbbpm": {
+    "compatibility": "^1.0.0"
+  }
+}
