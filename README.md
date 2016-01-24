@@ -5,6 +5,9 @@ It's based on the nodebb-plugin-markdown plugin.
 
 To customise options for the parser, please consult the "BBCode" page in the administration panel, under the "Plugins" heading.
 
+## Supported tags
+ * _None yet_
+
 ## Installation
 
     npm install nodebb-plugin-bbcode-plugin
