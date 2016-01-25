@@ -1,0 +1,34 @@
+{
+    "id": "nodebb-plugin-bbcode-parser",
+    "name": "BBCode Parser",
+    "description": "A BBCode parser for NodeBB",
+    "url": "https://github.com/mrgame64/nodebb-plugin-bbcode-parser",
+    "library": "./index.js",
+    "less": [
+        "public/less/default.less"
+    ],
+    "scripts": [
+        "public/js/client.js"
+    ],
+    "acpScripts": [
+        "public/js/admin.js"
+    ],
+    "staticDirs": {
+        "styles": "public/styles",
+        "js": "public/js"
+    },
+    "languages": "public/languages",
+    "defaultLang": "en_GB",
+    "templates": "./public/templates",
+    "hooks": [
+        { "hook": "static:app.load", "method": "onLoad" },
+        { "hook": "filter:parse.post", "method": "parsePost", "priority": 5 },
+        { "hook": "filter:parse.signature", "method": "parseSignature", "priority": 5 },
+        { "hook": "filter:parse.raw", "method": "parseRaw", "priority": 5 },
+        { "hook": "filter:composer.help", "method": "renderHelp" },
+        { "hook": "filter:admin.header.build", "method": "admin.menu" },
+        { "hook": "filter:composer.formatting", "method": "registerFormatting" },
+        { "hook": "filter:config.get", "method": "getConfig" },
+        { "hook": "filter:meta.getLinkTags", "method": "getLinkTags"}
+    ]
+}
