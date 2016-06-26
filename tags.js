@@ -1,88 +1,95 @@
-//Defines BBCode tags
-var BBTag = require('bbcode-parser/bTag');
+module.export = function(config) {
+    //Defines BBCode tags
+    var BBTag = require('bbcode-parser/bTag');
+    var bbTags = [];
 
-var bbTags = {};
+    //Text modifiers
+    bbTags["b"] = new BBTag("b", true, false, false);
+    bbTags["i"] = new BBTag("i", true, false, false);
+    bbTags["u"] = new BBTag("u", true, false, false);
+    bbTags["s"] = new BBTag("s", true, false, false);
 
-//Text modifiers
-bbTags["b"] = new BBTag("b", true, false, false);
-bbTags["i"] = new BBTag("i", true, false, false);
-bbTags["u"] = new BBTag("u", true, false, false);
-bbTags["s"] = new BBTag("s", true, false, false);
+    //Useless?
+    bbTags["text"] = new BBTag("text", true, false, true, function(tag, content, attr) {
+        return content;
+    });
 
-//Useless?
-bbTags["text"] = new BBTag("text", true, false, true, function(tag, content, attr) {
-    return content;
-});
+    //Font size
+    bbTags["size"] = new BBTag("size", true, false, false, function(tag, content, attr) {
+        return '<span style="font-size:' + attr + '">' + content + '</font>';
+    });
 
-//Font size
-bbTags["size"] = new BBTag("size", true, false, false, function(tag, content, attr) {
-    return '<span style="font-size:' + attr + '">' + content + '</font>';
-});
+    //Font color
+    bbTags["color"] = new BBTag("color", true, false, false, function(tag, content, attr) {
+        return '<span style="color:' + attr + '">' + content + '</font>';
+    });
 
-//Font color
-bbTags["color"] = new BBTag("color", true, false, false, function(tag, content, attr) {
-    return '<span style="color:' + attr + '">' + content + '</font>';
-});
-
-//Text align : center
-bbTags["center"] = new BBTag("center", true, false, false, function(tag, content, attr) {
-    return '<div style="text-align:center">' + content + '</div>';
-});
-
-//Quote
-bbTags["quote"] = new BBTag("quote", true, true, false, function(tag, content, attr) {
-    return '<blockquote><p>' + content + '</p></blockquote>';
-});
+    //Text align : center
+    bbTags["center"] = new BBTag("center", true, false, false, function(tag, content, attr) {
+        return '<div style="text-align:center">' + content + '</div>';
+    });
 
 
-//Un-ordered list
-bbTags["list"] = new BBTag("ul", true, true, false, function(tag, content, attr) {
-    return '<ul>' + content + '</ul>';
-});
+    //Quote
+    bbTags["quote"] = new BBTag("quote", true, true, false, function(tag, content, attr) {
+        return '<blockquote><p>' + content + '</p></blockquote>';
+    });
 
-//Ordered list
-bbTags["ol"] = new BBTag("ul", true, true, false, function(tag, content, attr) {
-    return '<ol>' + content + '</ol>';
-});
+    //Un-ordered list
+    bbTags["list"] = new BBTag("ul", true, true, false, function(tag, content, attr) {
+        return '<ul>' + content + '</ul>';
+    });
 
-//List item
-bbTags["li"] = new BBTag("li", true, false, false, function(tag, content, attr) {
-    return '<li>' + content + '</li>';
-});
+    //Ordered list
+    bbTags["ol"] = new BBTag("ul", true, true, false, function(tag, content, attr) {
+        return '<ol>' + content + '</ol>';
+    });
 
-//Shorthand for list item
-bbTags["*"] = bbTags["li"];
+    //List item
+    bbTags["li"] = new BBTag("li", true, false, false, function(tag, content, attr) {
+        return '<li>' + content + '</li>';
+    });
+
+    //Shorthand for list item
+    bbTags["*"] = bbTags["li"];
 
 
-//Image
-bbTags["img"] = new BBTag("img", true, false, false, function(tag, content, attr) {
-    return "<img src=\"" + content + "\" />";
-});
+    //Image
+    bbTags["img"] = new BBTag("img", true, false, false, function(tag, content, attr) {
+        return "<img src=\"" + content + "\" />";
+    });
 
-//Link
-bbTags["url"] = new BBTag("url", true, false, false, function(tag, content, attr) {
-    var link = content;
+    //Link
+    bbTags["url"] = new BBTag("url", true, false, false, function(tag, content, attr) {
+        var link = content;
 
-    if (attr["url"] != undefined) {
-        link = escapeHTML(attr["url"]);
-    }
+        if (attr["url"] != undefined) {
+            link = escapeHTML(attr["url"]);
+        }
 
-    if (!startsWith(link, "http://") && !startsWith(link, "https://")) {
-        link = "http://" + link;
-    }
+        if (!startsWith(link, "http://") && !startsWith(link, "https://")) {
+            link = "http://" + link;
+        }
 
-    return "<a href=\"" + link + "\" target=\"_blank\">" + content + "</a>";
-});
+        return "<a href=\"" + link + "\" target=\"_blank\">" + content + "</a>";
+    });
 
-//Code highlighting
-bbTags["code"] = new BBTag("code", true, false, true, function(tag, content, attr) {
-    var lang = attr["lang"];
+    //Code highlighting
+    bbTags["code"] = new BBTag("code", true, false, true, function(tag, content, attr) {
+        var lang = attr["lang"];
 
-    if (lang !== undefined) {
-        return "<code class=\"" + escapeHTML(lang) + "\">" + content + "</code>";
-    } else {
-        return "<code>" + content + "</code>";
-    }
-});
+        if (lang !== undefined) {
+            return "<code class=\"" + escapeHTML(lang) + "\">" + content + "</code>";
+        } else {
+            return "<code>" + content + "</code>";
+        }
+    });
 
-module.exports = new BBCodeParser(bbTags);
+    var bbCode = new BBCodeParser(bbTags);
+
+    return {
+        render: function(raw) {
+            return bbCode.parseString(raw, false);
+        }
+    };
+}
