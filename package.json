@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mrgame64/nodebb-plugin-bbcode-parser"
+    "url": "https://github.com/kerberjg/nodebb-plugin-bbcode-parser"
   },
   "keywords": [
     "nodebb",
@@ -14,15 +14,19 @@
     "bbcodes",
     "phpbb"
   ],
-  "author": "James Game <james.game.64@gmail.com>",
+  "author": "Jakub Kerber <kerber.jg@gmail.com>",
+  "contributors": [
+    "Jakub Kerber <kerber.jg@gmail.com>",
+    "Nicholas Silvestrin <n.silvestrin98@gmail.com>"
+  ]
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mrgame64/nodebb-plugin-bbcode-parser/issues"
+    "url": "https://github.com/kerberjg/nodebb-plugin-bbcode-parser/issues"
   },
   "dependencies": {
     "bbcode-parser": "1.x"
   },
   "nbbpm": {
-    "compatibility": "^1.0.0"
+    "compatibility": "^1.0.3"
   }
 }
