@@ -85,4 +85,4 @@ bbTags["code"] = new BBTag("code", true, false, true, function(tag, content, att
     }
 });
 
-module.exports = bbTags;
+module.exports = new BBCodeParser(bbTags);
