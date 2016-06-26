@@ -1,8 +1,7 @@
 (function() {
 	"use strict";
 
-	var	MarkdownIt = require('markdown-it'),
-		fs = require('fs'),
+	var	fs = require('fs'),
 		path = require('path'),
 		url = require('url');
 
@@ -12,28 +11,28 @@
 		plugins = module.parent.exports;
 
 	var	parser,
-		Markdown = {
+		BBCodeParser = {
 			config: {},
 			onLoad: function(params, callback) {
 				function render(req, res, next) {
-					res.render('admin/plugins/markdown', {
-						themes: Markdown.themes
+					res.render('admin/plugins/bbcode-parser', {
+						themes: BBCodeParser.themes
 					});
 				}
 
-				params.router.get('/admin/plugins/markdown', params.middleware.admin.buildHeader, render);
-				params.router.get('/api/admin/plugins/markdown', render);
+				params.router.get('/admin/plugins/bbcode-parser', params.middleware.admin.buildHeader, render);
+				params.router.get('/api/admin/plugins/bbcode-parser', render);
 
-				Markdown.init();
-				Markdown.loadThemes();
+				BBCodeParser.init();
+				BBCodeParser.loadThemes();
 
 				callback();
 			},
 
 			getConfig: function(config, callback) {
-				config.markdown = {
-					highlight: Markdown.highlight ? 1 : 0,
-					theme: Markdown.config.highlightTheme || 'railscasts.css'
+				config['bbcode-parser'] = {
+					highlight: BBCodeParser.highlight ? 1 : 0,
+					theme: BBCodeParser.config.highlightTheme || 'railscasts.css'
 				};
 				callback(null, config);
 			},
@@ -42,7 +41,7 @@
 				links.push({
 					rel: "stylesheet",
 					type: "",
-					href: nconf.get('relative_path') + '/plugins/nodebb-plugin-markdown/styles/' + (Markdown.config.highlightTheme || 'railscasts.css')
+					href: nconf.get('relative_path') + '/plugins/nodebb-plugin-bbcode-parser/styles/' + (BBCodeParser.config.highlightTheme || 'railscasts.css')
 				});
 				callback(null, links);
 			},
@@ -66,7 +65,7 @@
 						'nofollow': true
 					};
 
-				meta.settings.get('markdown', function(err, options) {
+				meta.settings.get('bbcode-parser', function(err, options) {
 					for(var field in defaults) {
 						// If not set in config (nil)
 						if (!options.hasOwnProperty(field)) {
@@ -83,16 +82,14 @@
 					_self.highlight = _self.config.highlight;
 					delete _self.config.highlight;
 
-					parser = new MarkdownIt(_self.config);
-
-					Markdown.updateParserRules(parser);
+					parser = require('./tags.js')(_self.config);
 				});
 			},
 
 			loadThemes: function() {
 				fs.readdir(path.join(__dirname, 'public/styles'), function(err, files) {
 					var isStylesheet = /\.css$/;
-					Markdown.themes = files.filter(function(file) {
+					BBCodeParser.themes = files.filter(function(file) {
 						return isStylesheet.test(file);
 					}).map(function(file) {
 						return {
@@ -124,8 +121,8 @@
 				callback(null, (raw && parser) ? parser.render(raw) : raw);
 			},
 			renderHelp: function(helpContent, callback) {
-				translator.translate('[[markdown:help_text]]', function(translated) {
-					plugins.fireHook('filter:parse.raw', '## Markdown\n' + translated, function(err, parsed) {
+				translator.translate('[[bbcode-parser:help_text]]', function(translated) {
+					plugins.fireHook('filter:parse.raw', '## BBCodeParser\n' + translated, function(err, parsed) {
 						helpContent += parsed;
 						callback(null, helpContent);
 					});
@@ -161,7 +158,7 @@
 						srcIdx = tokens[idx].attrIndex('src');
 
 					// Validate the url
-					if (!Markdown.isUrlValid(tokens[idx].attrs[srcIdx][1])) { return ''; }
+					if (!BBCodeParser.isUrlValid(tokens[idx].attrs[srcIdx][1])) { return ''; }
 
 					if (classIdx < 0) {
 						tokens[idx].attrPush(['class', 'img-responsive img-markdown']);
@@ -178,8 +175,8 @@
 						relIdx = tokens[idx].attrIndex('rel'),
 						hrefIdx = tokens[idx].attrIndex('href');
 
-					if (Markdown.isExternalLink(tokens[idx].attrs[hrefIdx][1])) {
-						if (Markdown.config.externalBlank) {
+					if (BBCodeParser.isExternalLink(tokens[idx].attrs[hrefIdx][1])) {
+						if (BBCodeParser.config.externalBlank) {
 							if (targetIdx < 0) {
 								tokens[idx].attrPush(['target', '_blank']);
 							} else {
@@ -187,7 +184,7 @@
 							}
 						}
 
-						if (Markdown.config.nofollow) {
+						if (BBCodeParser.config.nofollow) {
 							if (relIdx < 0) {
 								tokens[idx].attrPush(['rel', 'nofollow']);
 							} else {
@@ -199,7 +196,7 @@
 					return renderLink(tokens, idx, options, env, self);
 				};
 
-				plugins.fireHook('action:markdown.updateParserRules', parser);
+				plugins.fireHook('action:bbcode-parser.updateParserRules', parser);
 			},
 
 			isUrlValid: function(src) {
@@ -233,9 +230,9 @@
 			admin: {
 				menu: function(custom_header, callback) {
 					custom_header.plugins.push({
-						"route": '/plugins/markdown',
+						"route": '/plugins/bbcode-parser',
 						"icon": 'fa-edit',
-						"name": 'Markdown'
+						"name": 'BBCode Parser'
 					});
 
 					callback(null, custom_header);
@@ -243,6 +240,6 @@
 			}
 		};
 
-	module.exports = Markdown;
+	module.exports = BBCodeParser;
 })();
 
