@@ -18,7 +18,7 @@
   "contributors": [
     "Jakub Kerber <kerber.jg@gmail.com>",
     "Nicholas Silvestrin <n.silvestrin98@gmail.com>"
-  ]
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kerberjg/nodebb-plugin-bbcode-parser/issues"
