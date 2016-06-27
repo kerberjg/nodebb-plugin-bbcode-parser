@@ -83,8 +83,8 @@
 					delete _self.config.highlight;
 
 					parser = require('./tags.js')(_self.config, {
-						isUrlValid: isUrlValid,
-						isExternalLink: isExternalLink
+						isUrlValid: BBCodeParser.isUrlValid,
+						isExternalLink: BBCodeParser.isExternalLink
 					});
 				});
 			},
