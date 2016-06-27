@@ -26,7 +26,7 @@ module.export = function(config, helpers) {
 
     //Text align : center
     bbTags["center"] = new BBTag("center", true, false, false, function(tag, content, attr) {
-        return '<div style="text-align:center">' + content + '</div>';
+        return '<div style="text-align: center">' + content + '</div>';
     });
 
 
@@ -86,11 +86,10 @@ module.export = function(config, helpers) {
     bbTags["code"] = new BBTag("code", true, false, true, function(tag, content, attr) {
         var lang = attr["lang"];
 
-        if (lang !== undefined) {
-            return "<code class=\"" + escapeHTML(lang) + "\">" + content + "</code>";
-        } else {
-            return "<code>" + content + "</code>";
-        }
+        return '<pre><code class="' +
+                (lang ? config.langPrefix + lang.escapeHTML()) +
+                '">' + content.escapeHTML() +
+                '</code></pre>';
     });
 
     var bbCode = new BBCodeParser(bbTags);
