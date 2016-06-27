@@ -1,8 +1,8 @@
-define('admin/plugins/markdown', ['settings'], function(Settings) {
-	var Markdown = {};
+define('admin/plugins/bbcode-parser', ['settings'], function(Settings) {
+	var BBCodeParser = {};
 	
 	Markdown.init = function() {
-		Settings.load('markdown', $('.markdown-settings'), function(err, settings) {
+		Settings.load('bbcode-parser', $('.bbcode-parser-settings'), function(err, settings) {
 			var defaults = {
 				'html': false,
 				'xhtmlOut': true,
@@ -29,10 +29,10 @@ define('admin/plugins/markdown', ['settings'], function(Settings) {
 		});
 	
 		$('#save').on('click', function() {
-			Settings.save('markdown', $('.markdown-settings'), function() {
+			Settings.save('bbcode-parser', $('.bbcode-parser-settings'), function() {
 				app.alert({
 					type: 'success',
-					alert_id: 'markdown-saved',
+					alert_id: 'bbcode-parser-saved',
 					title: 'Reload Required',
 					message: 'Please reload your NodeBB to have your changes take effect',
 					clickfn: function() {
@@ -55,5 +55,5 @@ define('admin/plugins/markdown', ['settings'], function(Settings) {
 		});
 	};
 	
-	return Markdown;
+	return BBCodeParser;
 });

@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-lg-9">
-		<form class="form markdown-settings">
+		<form class="form bbcode-parser-settings">
 			<div class="panel panel-default">
 				<div class="panel-heading">Markdown</div>
 				<div class="panel-body">
@@ -103,7 +103,7 @@
 	</div>
 	<div class="col-lg-3">
 		<div class="panel panel-default">
-			<div class="panel-heading">Markdown Control Panel</div>
+			<div class="panel-heading">BBCode Control Panel</div>
 			<div class="panel-body">
 				<button class="btn btn-primary" id="save">Save Settings</button>
 			</div>
