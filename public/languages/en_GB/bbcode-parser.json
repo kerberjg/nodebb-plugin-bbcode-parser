@@ -1,0 +1,19 @@
+{
+	"bold": "bolded text",
+	"center": "centered text",
+	"italic": "italicised text",
+	"list_item": "list item",
+	"strikethrough_text": "strikethrough text",
+	"underline_text": "underlined text",
+	"code_text": "code",
+	"code_lang": "javascript",
+	"link_text": "link text",
+	"color": "red",
+	"color_text": "colored text",
+	"size": "12",
+	"size_text": "resized text",
+	"link_url": "link url",
+	"image_text": "alt text",
+	"image_url": "image url",
+	"help_text": "This forum is powered by BBCode. For full documentation, [url=http://bbcode.org/reference.php]click here[/url]"
+}
