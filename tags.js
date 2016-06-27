@@ -74,7 +74,12 @@ module.export = function(config, helpers) {
             link = "http://" + link;
         }
 
-        return "<a href=\"" + link + "\" target=\"_blank\">" + content + "</a>";
+        return '<a href="' + link + '"' +
+                (helpers.isExternalLink(link) ? 
+                    (config.externalBlank ? ' target="_blank"' : '') +
+                    (config.nofollow ? ' rel="nofollow"' : '')
+                : '') +
+                '>' + content + '</a>';
     });
 
     //Code highlighting
