@@ -87,7 +87,7 @@ module.export = function(config, helpers) {
         var lang = attr["lang"];
 
         return '<pre><code class="' +
-                (lang ? config.langPrefix + lang.escapeHTML()) +
+                (lang ? config.langPrefix + lang.escapeHTML() : '') +
                 '">' + content.escapeHTML() +
                 '</code></pre>';
     });
