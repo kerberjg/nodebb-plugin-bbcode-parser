@@ -100,7 +100,7 @@ $(document).ready(function() {
 	};
 
 	function highlight(elements) {
-		if (parseInt(config.markdown.highlight, 10)) {
+		if (parseInt(config['bbcode-parser'].highlight, 10)) {
 			require(['highlight'], function(hljs) {
 				elements.each(function(i, block) {
 					$(block.parentNode).addClass('markdown-highlight');
