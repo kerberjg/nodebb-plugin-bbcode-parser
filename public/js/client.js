@@ -156,7 +156,7 @@ $(document).ready(function() {
 		if (parseInt(config['bbcode-parser'].highlight, 10)) {
 			require(['highlight'], function(hljs) {
 				elements.each(function(i, block) {
-					$(block.parentNode).addClass('markdown-highlight');
+					$(block.parentNode).addClass('bbcode-highlight');
 					hljs.highlightBlock(block);
 				});
 			});
