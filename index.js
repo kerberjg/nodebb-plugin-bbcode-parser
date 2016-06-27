@@ -147,61 +147,6 @@
 				callback(null, payload);
 			},
 
-			updateParserRules: function(parser) {
-				// Update renderer to add some classes to all images
-				var renderImage = parser.renderer.rules.image || function(tokens, idx, options, env, self) {
-						return self.renderToken.apply(self, arguments);
-					},
-					renderLink = parser.renderer.rules.link_open || function(tokens, idx, options, env, self) {
-						return self.renderToken.apply(self, arguments);
-					};
-
-				parser.renderer.rules.image = function (tokens, idx, options, env, self) {
-					var classIdx = tokens[idx].attrIndex('class'),
-						srcIdx = tokens[idx].attrIndex('src');
-
-					// Validate the url
-					if (!BBCodeParser.isUrlValid(tokens[idx].attrs[srcIdx][1])) { return ''; }
-
-					if (classIdx < 0) {
-						tokens[idx].attrPush(['class', 'img-responsive img-markdown']);
-					} else {
-						tokens[idx].attrs[classIdx][1] = tokens[idx].attrs[classIdx][1] + ' img-responsive img-markdown';
-					}
-
-					return renderImage(tokens, idx, options, env, self);
-				};
-
-				parser.renderer.rules.link_open = function(tokens, idx, options, env, self) {
-					// Add target="_blank" to all links
-					var targetIdx = tokens[idx].attrIndex('target'),
-						relIdx = tokens[idx].attrIndex('rel'),
-						hrefIdx = tokens[idx].attrIndex('href');
-
-					if (BBCodeParser.isExternalLink(tokens[idx].attrs[hrefIdx][1])) {
-						if (BBCodeParser.config.externalBlank) {
-							if (targetIdx < 0) {
-								tokens[idx].attrPush(['target', '_blank']);
-							} else {
-								tokens[idx].attrs[targetIdx][1] = '_blank';
-							}
-						}
-
-						if (BBCodeParser.config.nofollow) {
-							if (relIdx < 0) {
-								tokens[idx].attrPush(['rel', 'nofollow']);
-							} else {
-								tokens[idx].attrs[relIdx][1] = 'nofollow';
-							}
-						}
-					}
-
-					return renderLink(tokens, idx, options, env, self);
-				};
-
-				plugins.fireHook('action:bbcode-parser.updateParserRules', parser);
-			},
-
 			isUrlValid: function(src) {
 				try {
 					var urlObj = url.parse(src, false, true);
