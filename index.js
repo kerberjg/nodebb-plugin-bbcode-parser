@@ -136,10 +136,17 @@
 				var formatting = [
 					{name: 'bold', className: 'fa fa-bold', title: '[[modules:composer.formatting.bold]]'},
 					{name: 'italic', className: 'fa fa-italic', title: '[[modules:composer.formatting.italic]]'},
-					{name: 'list', className: 'fa fa-list', title: '[[modules:composer.formatting.list]]'},
 					{name: 'strikethrough', className: 'fa fa-strikethrough', title: '[[modules:composer.formatting.strikethrough]]'},
+					{name: 'underline', className: 'fa fa-underline', title: '[[modules:composer.formatting.underline]]'},
+
+					{name: 'size', className: 'fa fa-text-height', title: '[[modules:composer.formatting.size]]'},
+					{name: 'color', className: 'fa fa-paint-brush', title: '[[modules:composer.formatting.color]]'},
+					{name: 'center', className: 'fa fa-align-center', title: '[[modules:composer.formatting.center]]'},
+					
+					{name: 'list', className: 'fa fa-list', title: '[[modules:composer.formatting.list]]'},
+					{name: 'image', className: 'fa fa-image-o', title: '[[modules:composer.formatting.image]]'},
 					{name: 'link', className: 'fa fa-link', title: '[[modules:composer.formatting.link]]'},
-					{name: 'picture-o', className: 'fa fa-picture-o', title: '[[modules:composer.formatting.picture]]'}
+					{name: 'code', className: 'fa fa-code', title: '[[modules:composer.formatting.code]]'}
 				];
 
 				payload.options = formatting.concat(payload.options);
