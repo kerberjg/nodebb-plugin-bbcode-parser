@@ -1,4 +1,4 @@
-module.export = function(config) {
+module.export = function(config, helpers) {
     //Defines BBCode tags
     var BBTag = require('bbcode-parser/bTag');
     var bbTags = [];
@@ -56,7 +56,10 @@ module.export = function(config) {
 
     //Image
     bbTags["img"] = new BBTag("img", true, false, false, function(tag, content, attr) {
-        return "<img src=\"" + content + "\" />";
+        if(!helpers.isUrlValid(content))
+            return '';
+
+        return '<img class="img-responsive img-markdown" src="' + content + '" />';
     });
 
     //Link
