@@ -82,7 +82,10 @@
 					_self.highlight = _self.config.highlight;
 					delete _self.config.highlight;
 
-					parser = require('./tags.js')(_self.config);
+					parser = require('./tags.js')(_self.config, {
+						isUrlValid: isUrlValid,
+						isExternalLink: isExternalLink
+					});
 				});
 			},
 
