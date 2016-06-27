@@ -2,6 +2,7 @@ module.exports = function(config, helpers) {
     //Defines BBCode tags
     var BBCodeParser = require('bbcode-parser');
     var BBTag = require('bbcode-parser/bbTag');
+    var escapeHTML = BBCodeParser.escapeHTML;
     var bbTags = [];
 
     //Text modifiers
@@ -10,24 +11,19 @@ module.exports = function(config, helpers) {
     bbTags["u"] = new BBTag("u", true, false, false);
     bbTags["s"] = new BBTag("s", true, false, false);
 
-    //Useless?
-    bbTags["text"] = new BBTag("text", true, false, true, function(tag, content, attr) {
-        return content;
-    });
-
     //Font size
     bbTags["size"] = new BBTag("size", true, false, false, function(tag, content, attr) {
-        return '<span style="font-size:' + attr + '">' + content + '</font>';
+        return '<span style="font-size:' + escapeHTML(attr['size']) + ';">' + content + '</span>';
     });
 
     //Font color
     bbTags["color"] = new BBTag("color", true, false, false, function(tag, content, attr) {
-        return '<span style="color:' + attr + '">' + content + '</font>';
+        return '<span style="color: ' + escapeHTML(attr['color']) + ';">' + content + '</span>';
     });
 
     //Text align : center
     bbTags["center"] = new BBTag("center", true, false, false, function(tag, content, attr) {
-        return '<div style="text-align: center">' + content + '</div>';
+        return '<div class="text-center">' + content + '</div>';
     });
 
 
@@ -37,12 +33,16 @@ module.exports = function(config, helpers) {
     });
 
     //Un-ordered list
-    bbTags["list"] = new BBTag("ul", true, true, false, function(tag, content, attr) {
+    bbTags["list"] = new BBTag("list", true, true, false, function(tag, content, attr) {
+        return '<ul>' + content + '</ul>';
+    });
+
+    bbTags["ul"] = new BBTag("ul", true, true, false, function(tag, content, attr) {
         return '<ul>' + content + '</ul>';
     });
 
     //Ordered list
-    bbTags["ol"] = new BBTag("ul", true, true, false, function(tag, content, attr) {
+    bbTags["ol"] = new BBTag("ol", true, true, false, function(tag, content, attr) {
         return '<ol>' + content + '</ol>';
     });
 
@@ -51,31 +51,24 @@ module.exports = function(config, helpers) {
         return '<li>' + content + '</li>';
     });
 
-    //Shorthand for list item
-    bbTags["*"] = bbTags["li"];
-
-
     //Image
     bbTags["img"] = new BBTag("img", true, false, false, function(tag, content, attr) {
         if(!helpers.isUrlValid(content))
             return '';
 
-        return '<img class="img-responsive img-markdown" src="' + content + '" />';
+        return '<img class="img-responsive img-markdown" src="' + escapeHTML(content) + '" />';
     });
 
     //Link
     bbTags["url"] = new BBTag("url", true, false, false, function(tag, content, attr) {
-        var link = content;
+        var link = '';
 
-        if (attr["url"] != undefined) {
-            link = escapeHTML(attr["url"]);
-        }
+        if (attr["url"] != undefined)
+            link = attr["url"];
+        else
+            link = content;
 
-        if (!startsWith(link, "http://") && !startsWith(link, "https://")) {
-            link = "http://" + link;
-        }
-
-        return '<a href="' + link + '"' +
+        return '<a href="' + escapeHTML(link) + '"' +
                 (helpers.isExternalLink(link) ? 
                     (config.externalBlank ? ' target="_blank"' : '') +
                     (config.nofollow ? ' rel="nofollow"' : '')
@@ -88,8 +81,8 @@ module.exports = function(config, helpers) {
         var lang = attr["lang"];
 
         return '<pre><code class="' +
-                (lang ? config.langPrefix + lang.escapeHTML() : '') +
-                '">' + content.escapeHTML() +
+                (lang ? config.langPrefix + escapeHTML(lang) : '') +
+                '">' + escapeHTML(content) +
                 '</code></pre>';
     });
 

@@ -2,7 +2,7 @@
 	<div class="col-lg-9">
 		<form class="form bbcode-parser-settings">
 			<div class="panel panel-default">
-				<div class="panel-heading">Markdown</div>
+				<div class="panel-heading">BBCode</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-6">

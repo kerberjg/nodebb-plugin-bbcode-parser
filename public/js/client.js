@@ -27,32 +27,32 @@ $(document).ready(function() {
 					formatting.addButtonDispatch('bold', function(textarea, selectionStart, selectionEnd){
 						if(selectionStart === selectionEnd){
 							controls.insertIntoTextarea(textarea, '[b]' + strings.bold + '[/b]');
-							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionStart + strings.bold.length + 2);
+							controls.updateTextareaSelection(textarea, selectionStart + 3, selectionStart + strings.bold.length + 3);
 						} else {
 							controls.wrapSelectionInTextareaWith(textarea, '[b]','[/b]');
-							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionEnd + 2);
+							controls.updateTextareaSelection(textarea, selectionStart + 3, selectionEnd + 3);
 						}
 					});
 
 					formatting.addButtonDispatch('italic', function(textarea, selectionStart, selectionEnd){
 						if(selectionStart === selectionEnd){
 							controls.insertIntoTextarea(textarea, '[i]' + strings.italic + '[/i]');
-							controls.updateTextareaSelection(textarea, selectionStart + 1, selectionStart + strings.italic.length + 1);
+							controls.updateTextareaSelection(textarea, selectionStart + 3, selectionStart + strings.italic.length + 3);
 						} else {
 							controls.wrapSelectionInTextareaWith(textarea, '[i]', '[/i]');
-							controls.updateTextareaSelection(textarea, selectionStart + 1, selectionEnd + 1);
+							controls.updateTextareaSelection(textarea, selectionStart + 3, selectionEnd + 3);
 						}
 					});
 
 					formatting.addButtonDispatch('list', function(textarea, selectionStart, selectionEnd){
 						if(selectionStart === selectionEnd){
-							controls.insertIntoTextarea(textarea, "[ul]\n[li]" + strings.list_item + "[/li]\n[/ul]");
+							controls.insertIntoTextarea(textarea, "[list]\n[li]" + strings.list_item + "[/li]\n[/list]");
 
 							// Highlight "list item"
-							controls.updateTextareaSelection(textarea, selectionStart + 3, selectionStart + strings.list_item.length + 3);
+							controls.updateTextareaSelection(textarea, selectionStart + 12, selectionStart + strings.list_item.length + 12);
 						} else {
-							controls.wrapSelectionInTextareaWith(textarea, '[ul]\n[li]', '[/li]\n[/ul]');
-							controls.updateTextareaSelection(textarea, selectionStart + 3, selectionEnd + 3);
+							controls.wrapSelectionInTextareaWith(textarea, '[list]\n[li]', '[/li]\n[/list]');
+							controls.updateTextareaSelection(textarea, selectionStart + 12, selectionEnd + 12);
 						}
 					});
 
@@ -60,38 +60,38 @@ $(document).ready(function() {
 						console.log(strings);
 						if(selectionStart === selectionEnd){
 							controls.insertIntoTextarea(textarea, "[s]" + strings.strikethrough_text + "[/s]");
-							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionEnd + strings.strikethrough_text.length + 2);
+							controls.updateTextareaSelection(textarea, selectionStart + 3, selectionEnd + strings.strikethrough_text.length + 3);
 						} else {
 							controls.wrapSelectionInTextareaWith(textarea, '[s]', '[/s]');
-							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionEnd + 2);
+							controls.updateTextareaSelection(textarea, selectionStart + 3, selectionEnd + 3);
 						}
 					});
 
 					formatting.addButtonDispatch('link', function(textarea, selectionStart, selectionEnd){
 						if(selectionStart === selectionEnd){
-							controls.insertIntoTextarea(textarea, "[url=" + strings.link_url + "]" + strings.link_text + '[/url]');
+							controls.insertIntoTextarea(textarea, '[url="' + strings.link_url + '"]' + strings.link_text + '[/url]');
 
 							// Highlight "link url"
 							controls.updateTextareaSelection(textarea, selectionStart + strings.link_text.length + 3, selectionEnd + strings.link_text.length + strings.link_url.length + 3);
 						} else {
-							controls.wrapSelectionInTextareaWith(textarea, "[url=" + strings.link_url + "]", '[/url]');
+							controls.wrapSelectionInTextareaWith(textarea, '[url="' + strings.link_url + '"]', '[/url]');
 
 							// Highlight "link url"
-							controls.updateTextareaSelection(textarea, selectionEnd + 3, selectionEnd + strings.link_url.length + 3);
+							controls.updateTextareaSelection(textarea, selectionEnd + 5, selectionEnd + strings.link_url.length + 5);
 						}
 					});
 
 					formatting.addButtonDispatch('image', function(textarea, selectionStart, selectionEnd){
 						if(selectionStart === selectionEnd){
-							controls.insertIntoTextarea(textarea, "[img=" + strings.image_url + "]" + strings.image_text + "[/img]");
+							controls.insertIntoTextarea(textarea, '[img]' + strings.image_url + '[/img]');
 
 							// Highlight "image url"
-							controls.updateTextareaSelection(textarea, selectionStart + strings.image_text.length + 4, selectionEnd + strings.image_text.length + strings.image_url.length + 4);
+							controls.updateTextareaSelection(textarea, selectionStart + strings.image_text.length + 5, selectionEnd + strings.image_text.length + strings.image_url.length + 4);
 						} else {
-							controls.wrapSelectionInTextareaWith(textarea, "[img=" + strings.image_url + "]", "[/img]");
+							controls.wrapSelectionInTextareaWith(textarea, "[img]", "[/img]");
 
 							// Highlight "image url"
-							controls.updateTextareaSelection(textarea, selectionEnd + 4, selectionEnd + strings.image_url.length + 4);
+							controls.updateTextareaSelection(textarea, selectionEnd + 5, selectionEnd + strings.image_url.length + 5);
 						}
 
 					});
@@ -99,39 +99,39 @@ $(document).ready(function() {
 					formatting.addButtonDispatch('underline', function(textarea, selectionStart, selectionEnd){
 						if(selectionStart === selectionEnd){
 							controls.insertIntoTextarea(textarea, '[u]' + strings.underline_text + '[/u]');
-							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionStart + strings.underline_text.length + 2);
+							controls.updateTextareaSelection(textarea, selectionStart + 3, selectionStart + strings.underline_text.length + 3);
 						} else {
 							controls.wrapSelectionInTextareaWith(textarea, '[u]','[/u]');
-							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionEnd + 2);
+							controls.updateTextareaSelection(textarea, selectionStart + 3, selectionEnd + 3);
 						}
 					});
 
 					formatting.addButtonDispatch('size', function(textarea, selectionStart, selectionEnd){
 						if(selectionStart === selectionEnd){
-							controls.insertIntoTextarea(textarea, '[size= ' + strings.size +']' + strings.size_text + '[/size]');
-							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionStart + strings.size_text.length + 2);
+							controls.insertIntoTextarea(textarea, '[size="' + strings.size +'"]' + strings.size_text + '[/size]');
+							controls.updateTextareaSelection(textarea, selectionStart + 7, selectionStart + strings.size_text.length + 7);
 						} else {
-							controls.wrapSelectionInTextareaWith(textarea, '[size=12]','[/size]');
-							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionEnd + 2);
+							controls.wrapSelectionInTextareaWith(textarea, '[size="' + strings.size +'"]','[/size]');
+							controls.updateTextareaSelection(textarea, selectionStart + 8, selectionEnd + 8);
 						}
 					});
 
 					formatting.addButtonDispatch('color', function(textarea, selectionStart, selectionEnd){
 						if(selectionStart === selectionEnd){
-							controls.insertIntoTextarea(textarea, '[color= ' + strings.color + ']' + strings.color_text + '[/color]');
-							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionStart + strings.color_text.length + 2);
+							controls.insertIntoTextarea(textarea, '[color="' + strings.color + '"]' + strings.color_text + '[/color]');
+							controls.updateTextareaSelection(textarea, selectionStart + 8, selectionStart + strings.color_text.length + 8);
 						} else {
-							controls.wrapSelectionInTextareaWith(textarea, '[color]','[/color]');
-							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionEnd + 2);
+							controls.wrapSelectionInTextareaWith(textarea, '[color="' + strings.color + '"]','[/color]');
+							controls.updateTextareaSelection(textarea, selectionStart + 13, selectionEnd + 13);
 						}
 					});
 
 					formatting.addButtonDispatch('code', function(textarea, selectionStart, selectionEnd){
 						if(selectionStart === selectionEnd){
-							controls.insertIntoTextarea(textarea, '[code lang=' + strings.code_lang + ']' + strings.code_text + '[/code]');
+							controls.insertIntoTextarea(textarea, '[code lang="' + strings.code_lang + '"]' + strings.code_text + '[/code]');
 							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionStart + strings.code_text.length + 2);
 						} else {
-							controls.wrapSelectionInTextareaWith(textarea, '[code lang=' + strings.code_lang + ']','[/code]');
+							controls.wrapSelectionInTextareaWith(textarea, '[code lang="' + strings.code_lang + '"]','[/code]');
 							controls.updateTextareaSelection(textarea, selectionStart + 2, selectionEnd + 2);
 						}
 
