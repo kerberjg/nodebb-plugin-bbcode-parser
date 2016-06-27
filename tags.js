@@ -1,5 +1,6 @@
 module.exports = function(config, helpers) {
     //Defines BBCode tags
+    var BBCodeParser = require('bbcode-parser');
     var BBTag = require('bbcode-parser/bbTag');
     var bbTags = [];
 
