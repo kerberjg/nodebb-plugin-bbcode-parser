@@ -1,4 +1,4 @@
-module.export = function(config, helpers) {
+module.exports = function(config, helpers) {
     //Defines BBCode tags
     var BBTag = require('bbcode-parser/bTag');
     var bbTags = [];
