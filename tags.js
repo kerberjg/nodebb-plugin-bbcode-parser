@@ -12,27 +12,27 @@ module.exports = function(config, helpers) {
     bbTags["s"] = new BBTag("s", true, false, false);
 
     //Font size
-    bbTags["size"] = new BBTag("size", true, false, true, function(tag, content, attr) {
+    bbTags["size"] = new BBTag("size", true, false, false, function(tag, content, attr) {
         return '<span style="font-size:' +
                 escapeHTML(attr['size'] || '') + '">' +
                 content + '</span>';
     });
 
     //Font color
-    bbTags["color"] = new BBTag("color", true, false, true, function(tag, content, attr) {
+    bbTags["color"] = new BBTag("color", true, false, false, function(tag, content, attr) {
         return '<span style="color:' +
                 escapeHTML(attr['color'] || '') + '">' +
                 content + '</span>';
     });
 
     //Text align : center
-    bbTags["center"] = new BBTag("center", true, false, true, function(tag, content, attr) {
+    bbTags["center"] = new BBTag("center", true, false, false, function(tag, content, attr) {
         return '<div class="text-center">' + content + '</div>';
     });
 
 
     //Quote
-    bbTags["quote"] = new BBTag("quote", true, true, true, function(tag, content, attr) {
+    bbTags["quote"] = new BBTag("quote", true, true, false, function(tag, content, attr) {
         return '<blockquote><p>' + content + '</p></blockquote>';
     });
 
@@ -94,7 +94,7 @@ module.exports = function(config, helpers) {
 
     return {
         render: function(raw) {
-            return bbCode.parseString(raw, false);
+            return bbCode.parseString(raw);
         }
     };
 }
