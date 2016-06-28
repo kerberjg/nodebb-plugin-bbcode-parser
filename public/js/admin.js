@@ -1,7 +1,7 @@
 define('admin/plugins/bbcode-parser', ['settings'], function(Settings) {
 	var BBCodeParser = {};
 	
-	Markdown.init = function() {
+	BBCodeParser.init = function() {
 		Settings.load('bbcode-parser', $('.bbcode-parser-settings'), function(err, settings) {
 			var defaults = {
 				'html': false,
