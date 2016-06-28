@@ -144,7 +144,7 @@
 					{name: 'center', className: 'fa fa-align-center', title: '[[modules:composer.formatting.center]]'},
 					
 					{name: 'list', className: 'fa fa-list', title: '[[modules:composer.formatting.list]]'},
-					{name: 'image', className: 'fa fa-image-o', title: '[[modules:composer.formatting.image]]'},
+					{name: 'image', className: 'fa fa-image', title: '[[modules:composer.formatting.image]]'},
 					{name: 'link', className: 'fa fa-link', title: '[[modules:composer.formatting.link]]'},
 					{name: 'code', className: 'fa fa-code', title: '[[modules:composer.formatting.code]]'}
 				];
