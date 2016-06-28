@@ -3,6 +3,13 @@ module.exports = function(config, helpers) {
     var BBCodeParser = require('bbcode-parser');
     var BBTag = require('bbcode-parser/bbTag');
     var escapeHTML = BBCodeParser.escapeHTML;
+    var unescapeHTML = function(safe) {
+    return safe.replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#039;/g, "'");
+}
     var bbTags = [];
 
     //Text modifiers
@@ -13,16 +20,20 @@ module.exports = function(config, helpers) {
 
     //Font size
     bbTags["size"] = new BBTag("size", true, false, false, function(tag, content, attr) {
-        return '<span style="font-size:' +
-                escapeHTML(attr['size'] || '') + '">' +
-                content + '</span>';
+        var res =  '<span style="font-size:' +
+                    escapeHTML(attr['size'] || '') + '">' +
+                    content + '</span>';
+
+        return unescapeHTML(res);
     });
 
     //Font color
     bbTags["color"] = new BBTag("color", true, false, false, function(tag, content, attr) {
-        return '<span style="color:' +
-                escapeHTML(attr['color'] || '') + '">' +
-                content + '</span>';
+        var res =  '<span style="color:' +
+                    escapeHTML(attr['color'] || '') + '">' +
+                    content + '</span>';
+
+        return unescapeHTML(res);
     });
 
     //Text align : center
