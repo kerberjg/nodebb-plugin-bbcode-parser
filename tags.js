@@ -13,15 +13,15 @@ module.exports = function(config, helpers) {
 
     //Font size
     bbTags["size"] = new BBTag("size", true, false, true, function(tag, content, attr) {
-        return '<span style="font-size: ' +
-                escapeHTML(attr['size']) + '">' +
+        return '<span style="font-size:' +
+                escapeHTML(attr['size'] || '') + '">' +
                 content + '</span>';
     });
 
     //Font color
     bbTags["color"] = new BBTag("color", true, false, true, function(tag, content, attr) {
-        return '<span style="color: ' +
-                escapeHTML(attr['color']) + '">' +
+        return '<span style="color:' +
+                escapeHTML(attr['color'] || '') + '">' +
                 content + '</span>';
     });
 
@@ -60,7 +60,7 @@ module.exports = function(config, helpers) {
         if(!helpers.isUrlValid(content))
             return '';
 
-        return '<img class="img-responsive img-markdown" src="' + escapeHTML(content) + '" />';
+        return '<img class="img-responsive img-markdown" src="' + escapeHTML(content || '') + '" />';
     });
 
     //Link
@@ -85,7 +85,7 @@ module.exports = function(config, helpers) {
         var lang = attr["lang"];
 
         return '<pre><code class="' +
-                (lang ? config.langPrefix + escapeHTML(lang) : '') +
+                (lang ? config.langPrefix + escapeHTML(lang || '') : '') +
                 '">' + escapeHTML(content) +
                 '</code></pre>';
     });
